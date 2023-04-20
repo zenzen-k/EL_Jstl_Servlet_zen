@@ -170,7 +170,7 @@
 		<td>보유수량</td>
 		<td>
 			<%
-			if(bb.getCount() == null){
+			if(bb.getCount().equals("선택")){
 			%>
 				보유수량 체크 누락
 			<%
