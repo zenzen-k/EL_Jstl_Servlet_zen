@@ -9,16 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class HelloServlet
+ * Servlet implementation class TestServlet
  */
-@WebServlet("/hello.xyz") /* URL Mapping */
-public class HelloServlet extends HttpServlet {
+//@WebServlet("/test")
+public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public HelloServlet() {
+    public TestServlet() {
+        super();
         System.out.println("생성자");
     }
 
@@ -28,14 +29,14 @@ public class HelloServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		System.out.println("init");
 	}
-    
+
 	/**
 	 * @see Servlet#destroy()
 	 */
 	public void destroy() {
 		System.out.println("destroy");
 	}
- 
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
