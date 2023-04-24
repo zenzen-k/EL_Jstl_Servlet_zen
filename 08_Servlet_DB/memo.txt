@@ -1,0 +1,24 @@
+create sequence mseq; -- 이렇게 끝내면 1~ 무한 시퀀스!
+
+
+drop sequence mseq;
+create sequence mseq
+	increment by 1
+	start with 1
+	minvalue 1
+	nocache;
+
+
+
+drop table member cascade constraints purge; -- purge는 써도되고 안써도 ㄱㅊ
+
+drop table member cascade constraints;
+create table member(
+	no number primary key,
+	name varchar2(10),
+	password varchar2(10)
+);
+
+insert into member values(mseq.nextval, '수지', '1234');
+commit;
+select * from member;

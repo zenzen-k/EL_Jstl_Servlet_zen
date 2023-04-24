@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+
 <h4>-- 1번 속성으로 받기 --</h4>
 아이디 : <%=request.getAttribute("id")%><br>
 비밀번호 : <%=request.getAttribute("passwd")%><br>
@@ -69,13 +70,13 @@ jsp : <%=request.getParameter("jsp") %><br>
 
 
 <hr>
-<h4>-- 4번 EL로 받기 --</h4>
+<h4>-- 4번 EL로 받기(param객체) --</h4>
 아이디 : ${param.id}<br>
 비밀번호 : ${param.passwd}<br>
 이름 : ${param.name}<br>
 생년월일 : ${param.year}년 ${param.month}월 ${param.day}일<br>
 취미 : 
-<c:forEach var="h" items="${hobby}" varStatus="status">
+<c:forEach var="h" items="${paramValues.hobby}" varStatus="status">
 	${h}
 	<c:if test="${!status.last}">,</c:if>
 </c:forEach><br>
@@ -88,7 +89,7 @@ jsp : ${param.jsp}<br>
 
 
 <hr>
-<h4>-- 5번 requestScope로 받기 --</h4>
+<h4>-- 5번 requestScope로 받기(속성) --</h4>
 아이디 : ${requestScope.id}<br>
 비밀번호 : ${requestScope.passwd}<br>
 이름 : ${requestScope.name}<br>
@@ -102,3 +103,82 @@ jsp : ${param.jsp}<br>
 c언어 : ${requestScope.c}<br>
 java : ${requestScope.java}<br>
 jsp : ${requestScope.jsp}<br>
+
+
+
+
+<hr>
+<h4>-- 6번 requestScope로 받기(속성, BEAN) --</h4>
+아이디 : ${requestScope.pb.id}<br>
+비밀번호 : ${requestScope.pb.passwd}<br>
+이름 : ${requestScope.pb.name}<br>
+생년월일 : ${requestScope.pb.year}년 ${requestScope.pb.month}월 ${requestScope.pb.day}일<br>
+취미 : 
+<c:forEach var="h" items="${requestScope.pb.hobby}">
+	${h}
+</c:forEach><br>
+
+[성적]<br>
+c언어 : ${requestScope.pb.c}<br>
+java : ${requestScope.pb.java}<br>
+jsp : ${requestScope.pb.jsp}<br>
+
+
+
+
+<hr>
+<h4>-- 7번 Bean로 받기(EL) --</h4>
+<c:set var="pb2" value="<%=new myPkg.PersonBean() %>"/>
+<c:set target="${pb2}" property="id" value="${param.id}"/>
+<c:set target="${pb2}" property="passwd" value="${param.passwd}"/>
+<c:set target="${pb2}" property="name" value="${param.name}"/>
+<c:set target="${pb2}" property="year" value="${param.year}"/>
+<c:set target="${pb2}" property="day" value="${param.day}"/>
+<c:set target="${pb2}" property="hobby" value="${paramValues.hobby}"/>
+<c:set target="${pb2}" property="c" value="${param.c}"/>
+<c:set target="${pb2}" property="java" value="${param.java}"/>
+<c:set target="${pb2}" property="jsp" value="${param.jsp}"/>
+
+아이디 : ${pb2.id}<br>
+비밀번호 : ${pb2.passwd}<br>
+이름 : ${pb2.name}<br>
+생년월일 : ${pb2.year}년 ${pb2.month}월 ${pb2.day}일<br>
+취미 : 
+<c:forEach var="h" items="${pb2.hobby}">
+	${h}
+</c:forEach><br>
+
+[성적]<br>
+c언어 : ${pb2.c}<br>
+java : ${pb2.java}<br>
+jsp : ${pb2.jsp}<br>
+
+
+
+
+
+<hr>
+<%
+	// 현재 페이지에서만 사용가능한 변수
+	pageContext.setAttribite("id","ha");
+	
+	//request : 현재페이지에서 설정한 값을 다음 페이지까지 사용하고 싶을 때
+	request.setAttribute("id", "haha");
+	
+	//session : 하나의 웹브라우저를 사용하는 중에 정보가 유지된다.
+	session.setAttribute("id", "hahaha");
+	
+	//application : 해당 프로젝트 안에서는 어디서든 가능하다. 가장 큰 범위.
+	application.setAttribute("id", "hahahaha");
+%>
+
+${id} 
+<!-- 
+	가장 범위가 작은것부터 찾아서 적용한다.
+	설정한것이 많이서 각각 가져오고 싶다면
+	${pageScope}
+	${requestScope}
+	${sessionScope}
+	${applicationScope}
+ -->
+

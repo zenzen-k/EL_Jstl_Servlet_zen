@@ -44,7 +44,6 @@ url 맵핑 설정도 다양하게 ㄱ ㄱ -->
 		<p>
 	<span>취미: </span> 
 		<c:set var="hobby" value="<%=hobby%>"/>
-		<c:set var="hobby" value="<%=hobby%>"/>
 		<c:forEach var="h" items="${hobby}">
 			<input type="checkbox" name="hobby" value="${h}">${h}
 		</c:forEach>
@@ -54,5 +53,5 @@ url 맵핑 설정도 다양하게 ㄱ ㄱ -->
 	<span>JAVA: </span><input type="text" name="java" style="width: 70px">&nbsp;
 	<span>JSP: </span><input type="text" name="jsp" style="width: 70px"> 
 	<p>
-	<input type="submit" value="가입하기" id="sub" onClick=""> 
+	<input type="submit" value="가입하기" id="sub"> 
 </form>
