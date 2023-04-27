@@ -9,4 +9,31 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>survey</servlet-name>
+  	<servlet-class>svy.SurveyServlet</servlet-class>
+  	
+  	<init-param>
+  	 <param-name>driver</param-name>
+  	 <param-value>oracle.jdbc.driver.OracleDriver</param-value>
+  	</init-param>
+  	<init-param>
+  	 <param-name>url</param-name>
+  	 <param-value>jdbc:oracle:thin:@localhost:1521:orcl</param-value>
+  	</init-param>
+  	<init-param>
+  	 <param-name>user</param-name>
+  	 <param-value>jspid</param-value>
+  	</init-param>
+  	<init-param>
+  	 <param-name>password</param-name>
+  	 <param-value>jsppw</param-value>
+  	</init-param>
+  	
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>survey</servlet-name>
+  	<url-pattern>*.sv</url-pattern>
+  </servlet-mapping>
 </web-app>

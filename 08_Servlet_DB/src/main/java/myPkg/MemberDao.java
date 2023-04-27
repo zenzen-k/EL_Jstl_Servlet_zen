@@ -80,7 +80,8 @@ public class MemberDao {
 		//System.out.println("list size : " + list.size());
 		return list;
 	}
-
+	
+	//삭제
 	public void deleteMember(String no) {
 		String sql = "delete member where no = " + no;
 		try {
@@ -100,4 +101,58 @@ public class MemberDao {
 			}
 		}
 	}
+
+	// 하나의 번호에 해당하는 레코드를 조회함
+	public MemberBean getOneMember(String no) {
+		MemberBean mb = new MemberBean();
+		String sql = "select * from member where no=" + no;
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				mb.setNo(rs.getInt("no"));
+				mb.setName(rs.getString("name"));
+				mb.setPassword(rs.getString("password"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)
+					ps.close();
+				if(rs!=null)
+					rs.close();
+				if(conn!=null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return mb;
+	}
+
+	public void updateMember(MemberBean mb) {
+		String sql = "update member set name=?, password=? where no=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, mb.getName());
+			ps.setString(2, mb.getPassword());
+			ps.setInt(3, mb.getNo());
+			int cnt = ps.executeUpdate();
+			System.out.println("update cnt : " + cnt);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null)
+					ps.close();
+				if(conn!=null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
 }

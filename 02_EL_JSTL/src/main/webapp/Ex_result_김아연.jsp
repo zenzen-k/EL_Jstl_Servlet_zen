@@ -4,6 +4,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -13,7 +14,12 @@
 	<caption>param 사용</caption>
 	<tr>
 		<td>제목</td>
-		<td>${param.title}</td>
+		<td>
+			<c:if test='${param.title} == ""'>
+				제목누락
+			</c:if>
+			${param.title}
+		</td>
 	</tr>
 	<tr>
 		<td>저자</td>
@@ -25,7 +31,9 @@
 	</tr>
 	<tr>
 		<td>가격</td>
-		<td>${param.price}</td>
+		<td>
+			<fmt:formatNumber value="${param.price}" pattern="###,###"/>
+		</td>
 	</tr>
 	<tr>
 		<td>입고일</td>
@@ -48,7 +56,7 @@
 			<c:if test="${empty paramValues.bookstore}">
 				구입가능 서점 체크 누락
 			</c:if>
-			<c:if test="${paramValues.kind != null}">
+			<c:if test="${!empty paramValues.kind}">
 				<c:forEach var="i" begin="0" end="${fn:length(paramValues.bookstore)-1}">
 					${paramValues.bookstore[i]}
 				</c:forEach>
@@ -137,55 +145,46 @@
 	<tr>
 		<td>배송비</td>
 		<td>
-			<%
-			if(bb.getKind() == null){
-			%>
+			<c:if test="${bb.kind == null}">
 				배송비 체크 누락
-			<%
-			}else{
-				%>
-				<jsp:getProperty name="bb" property="kind"/>	
-				<%
-			}
-			%>
+			</c:if>
+			<c:if test="${bb.kind != null}">
+				<c:out value="${bb.kind}"/>
+			</c:if>
 		</td>
 	</tr>
 	<tr>
 		<td>구입가능 서점</td>
 		<td>
-			<%
-			if(bb.getBookstore() == null){
-			%>
+			<c:if test="${empty bb.bookstore}">
 				구입가능 서점 체크 누락
-			<%
-			}else{
-				for(String sb : bb.getBookstore()){
-					out.print(sb + " ");
-				}
-			}
-			%>
+			</c:if>
+			<c:if test="${not empty bb.bookstore}">
+				<c:forEach var="k" items="${bb.bookstore}">
+					${k}
+				</c:forEach>
+			</c:if>
 		</td>
 	</tr>
 	<tr>
 		<td>보유수량</td>
 		<td>
-			<%
-			if(bb.getCount().equals("선택")){
-			%>
+			<c:if test="${bb.count eq '선택'}">
 				보유수량 체크 누락
-			<%
-			}else{
-				%>
-				<jsp:getProperty name="bb" property="count"/>	
-				<%
-			}
-			%>
+			</c:if>
+			<c:if test="${bb.count ne '선택'}">
+				${bb.count}권
+			</c:if>
 		</td>
 	</tr>
 </table>
 
 
-
+<!-- 객체생성 -->
+<!-- 
+myPkg.BookBean bb2 = new myPkg.BookBean();
+bb2.setTitle() 
+ -->
 <c:set var="bb2" value="<%=new myPkg.BookBean() %>"/>
 <c:set target="${bb2}" property="title" value="${param.title}"/>
 <c:set target="${bb2}" property="author" value="${param.author}"/>

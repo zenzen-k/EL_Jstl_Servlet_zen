@@ -85,6 +85,15 @@ public class MemberServlet extends HttpServlet {
 		}
 		else if(command.equals("/update.mb")) {
 			System.out.println("update 요청");
+			
+			String name = request.getParameter("name");
+			int no = Integer.parseInt(request.getParameter("no"));
+			String password = request.getParameter("password");
+			
+			MemberBean mb = new MemberBean(no, name, password);
+			mdao.updateMember(mb);
+			
+			viewPage = "list.mb";
 		}
 		else if(command.equals("/delete.mb")) {
 			System.out.println("delete 요청");
@@ -93,7 +102,7 @@ public class MemberServlet extends HttpServlet {
 			//System.out.println("no : " + no);
 			mdao.deleteMember(no);
 			
-			// 또 챙겨가줘야한다.
+			// 또 챙겨가줘야한다. 같은코드 다시 쓰던지 list서블릿 호출하던지~~~
 			viewPage = "/list.mb";
 		}
 		else if(command.equals("/list.mb")) {
@@ -103,6 +112,13 @@ public class MemberServlet extends HttpServlet {
 			// 가져온 목록을 보내기 위해서 속성으로 설정함!
 			request.setAttribute("lists", lists);
 			viewPage = "Ex01_memberList.jsp";
+		}
+		else if(command.equals("/updateForm.mb")) {
+			//수정폼으로 갈때 데이터 가져가게끔. 목록보기(수정클릭) -> 번호가지고 옴
+			String no = request.getParameter("no");
+			MemberBean mb = mdao.getOneMember(no);
+			request.setAttribute("mb", mb);
+			viewPage = "Ex01_memberUpdateForm.jsp";
 		}
 		
 		// 이동할거임

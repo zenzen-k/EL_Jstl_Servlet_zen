@@ -35,7 +35,7 @@ memberTo.jsp(버튼클릭) -> Ex01_memberList.jsp (servlet에서 ArrayList reque
 				<td>${l.name}</td>
 				<td>${l.password}</td>
 				<td><a href="delete.mb?no=${l.no}">삭제</a></td>
-				<td>수정</td>
+				<td><a href="updateForm.mb?no=${l.no}">수정</a></td>
 			</tr>
 		</c:forEach>
 	</c:if>
@@ -62,8 +62,13 @@ memberTo.jsp(버튼클릭) -> Ex01_memberList.jsp (servlet에서 ArrayList reque
 				<td>${lists[i].password}</td>
 				<!-- <td>${lists[i]['password']}</td> -->
 				<td><a href="delete.mb?no=${lists[i].no}">삭제</a></td>
-				<td>수정</td>
+				<td><a href="updateForm.mb?no=${lists[i].no}">수정</a></td>
 			</tr>
 		</c:forEach>
 	</c:if>
 </table>
+
+
+<hr>
+
+<a href="Ex01_memberForm.jsp">삽입</a>
