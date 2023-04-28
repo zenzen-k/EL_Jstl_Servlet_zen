@@ -39,6 +39,7 @@ public class BoardListCommand implements BoardCommand{
 		// 어자피 목록번호에만 사용될 내용이므로
 		int number = count-(currentPage-1) * pageSize + 1;
 		
+		// 하단 페이지 번호 설정에 필요한 변수 설정.
 		int pageCount = count/pageSize + (count%pageSize == 0 ? 0 : 1);
 		int pageBlock = 3;
 		
