@@ -70,7 +70,6 @@ public class BoardFrontController extends HttpServlet {
 		String command = uri.substring(conPath.length());
 		String viewPage = null;
 		System.out.println("command : " + command);
-		
 
 		BoardCommand bcommand;
 
@@ -87,11 +86,6 @@ public class BoardFrontController extends HttpServlet {
 			bcommand.execute(request, response);
 			viewPage = "content.jsp";
 		}
-		/*
-		 * else if(command.equals("/deleteForm.bd")) { bcommand = new
-		 * BoardDeleteFormCommand(); bcommand.execute(request, response); viewPage =
-		 * "deleteForm.jsp"; }
-		 */
 		else if(command.equals("/delete.bd")) {
 			bcommand = new BoardDeleteCommand();
 			bcommand.execute(request, response);
@@ -127,11 +121,6 @@ public class BoardFrontController extends HttpServlet {
 			bcommand.execute(request, response);
 			viewPage = "boardList.jsp";
 		}
-		/*
-		 * else if(command.equals("/replyForm.bd")) { bcommand = new
-		 * BoardReplyFormCommand(); bcommand.execute(request, response); viewPage =
-		 * "replyForm.jsp"; }
-		 */
 		else if(command.equals("/reply.bd")) {
 			if(sc.getAttribute("flag").equals("false")) {
 				bcommand = new BoardReplyCommand();

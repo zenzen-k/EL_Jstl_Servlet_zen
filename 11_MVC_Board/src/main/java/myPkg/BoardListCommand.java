@@ -26,7 +26,7 @@ public class BoardListCommand implements BoardCommand{
 		int startRow = (currentPage-1) * pageSize + 1; // 1페이지라면 (1-1) * 5 +1 = 1
 		int endRow = currentPage * pageSize; // 1페이지라면 1 * 5 = 5
 		
-		// 전체 레코드 수와 글목록 가져오기. 글이 없으면 lists = null임.
+		// 전체 레코드 수와 글목록 가져오기. 글이 없으면 lists = null.
 		BoardDao bdao = BoardDao.getInstance();
 		ArrayList<BoardBean> lists = null;
 		int count = bdao.getArticleCount(); // 전체레코드수
@@ -35,7 +35,15 @@ public class BoardListCommand implements BoardCommand{
 		}
 
 		// 목록에 보여질 번호. 거꾸로 카운트 해야함!@
-		int number = count-(currentPage-1) * pageSize +1;
+		// +1 한 이유 : list.jsp 에서 목록번호를 -1 한상태로 반복해서 +1 해줌! 
+		// 어자피 목록번호에만 사용될 내용이므로
+		int number = count-(currentPage-1) * pageSize + 1;
+		
+		int pageCount = count/pageSize + (count%pageSize == 0 ? 0 : 1);
+		int pageBlock = 3;
+		
+		int startPage = ((currentPage-1) / pageBlock * pageBlock ) + 1;
+		int endPage = startPage + pageBlock - 1;
 		
 		// jsp에서 필요한 값 속성으로 넘기기
 		request.setAttribute("count", count);
@@ -44,6 +52,9 @@ public class BoardListCommand implements BoardCommand{
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("pageCount", pageCount);
 	}
 
 }

@@ -54,8 +54,7 @@
 			<td>	
 				<c:set var="number" value="${number-1}"/>
 				<c:out value="${number}"/>
-			
-			</td> 
+			</td>
 			<td align="left">
 				<c:set var="wid" value="20"/>
 				<c:if test="${bb.re_level > 0}">
@@ -80,13 +79,13 @@
 
 
 <c:if test="${count>0}">
-	<fmt:parseNumber var="x" value="${count/pageSize}" integerOnly="true"/>
+	<%-- <fmt:parseNumber var="x" value="${count/pageSize}" integerOnly="true"/>
 	<c:set var="pageCount" value="${x + (count%pageSize==0? 0 : 1)}"/>
 	<c:set var="pageBlock" value="3"/>
 	
 	<fmt:parseNumber var="x" value="${(currentPage-1) / pageBlock}" integerOnly="true"/>
 	<c:set var="startPage" value="${(x * pageBlock ) +1}"/>
-	<c:set var="endPage" value="${startPage + pageBlock - 1}"/>
+	<c:set var="endPage" value="${startPage + pageBlock - 1}"/> --%>
 	
 	<c:if test="${pageCount < endPage}">
 		<c:set var="endPage" value="${pageCount}"/>
