@@ -68,7 +68,7 @@
 				</c:if>
 			</td>
 			<td>${bb.writer}</td>
-			<td>${bb.reg_date}</td>
+			<td><fmt:formatDate value="${bb.reg_date}" type="date" pattern="yyyy-MM-dd HH:mm"/></td>
 			<td>${bb.readcount}</td>
 			<td>${bb.ip}</td>
 		</tr>

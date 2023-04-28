@@ -2,3 +2,9 @@
     pageEncoding="UTF-8"%>
 
 <jsp:forward page="list.bd"/>
+
+<%-- <%
+	response.sendRedirect("list.bd");
+%> --%>
+
+ 

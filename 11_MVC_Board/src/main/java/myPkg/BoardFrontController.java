@@ -82,6 +82,7 @@ public class BoardFrontController extends HttpServlet {
 			viewPage = "list.bd";
 		}
 		else if(command.equals("/content.bd")) {
+			// 목록보기 -> 제목클릭 -> 여기로
 			bcommand = new BoardContentCommand();
 			bcommand.execute(request, response);
 			viewPage = "content.jsp";
@@ -90,14 +91,21 @@ public class BoardFrontController extends HttpServlet {
 			bcommand = new BoardDeleteCommand();
 			bcommand.execute(request, response);
 			
-			int cnt = (Integer)request.getAttribute("cnt");
-			
-			if(cnt != 1){
-				response.getWriter().append("<script>alert('비밀번호가 일치하지 않습니다');history.go(-1);</script>");
+			/* Command에서 처리했음!
+			 * int cnt = (Integer)request.getAttribute("cnt");
+			 * 
+			 * if(cnt != 1){ response.getWriter().
+			 * append("<script>alert('비밀번호가 일치하지 않습니다');history.go(-1);</script>"); 
+			 * return;
+			 * }
+			 */
+			if(request.getAttribute("match").equals("false")) {
 				return;
+			}else {
+				// command 에서 속성으로 새롭게 pageNum을 설정했기때문에 속성으로 가쟈와야함!
+				viewPage = "list.bd?pageNum=" + request.getAttribute("pageNum");
 			}
 			
-			viewPage = "list.bd?pageNum=" + request.getAttribute("pageNum");
 		}
 		else if(command.equals("/updateForm.bd")) {
 			bcommand = new BoardUpdateFormCommand();
@@ -108,13 +116,19 @@ public class BoardFrontController extends HttpServlet {
 			bcommand = new BoardUpdateCommand();
 			bcommand.execute(request, response);
 			
-			int cnt = (Integer)request.getAttribute("cnt");
+			/*
+			 * int cnt = (Integer)request.getAttribute("cnt");
+			 * 
+			 * if(cnt != 1){ response.getWriter().
+			 * append("<script>alert('비밀번호가 일치하지 않습니다');history.go(-1);</script>"); return;
+			 * }
+			 */
 			
-			if(cnt != 1){
-				response.getWriter().append("<script>alert('비밀번호가 일치하지 않습니다');history.go(-1);</script>");
+			if(request.getAttribute("match").equals("false")) {
 				return;
+			}else {
+				viewPage = "list.bd";
 			}
-			viewPage = "list.bd";
 		}
 		else if(command.equals("/list.bd")) {
 			bcommand = new BoardListCommand();
@@ -127,7 +141,7 @@ public class BoardFrontController extends HttpServlet {
 				bcommand.execute(request, response);
 				sc.setAttribute("flag", "true");
 			}
-			viewPage = "list.bd";
+			viewPage = "/list.bd";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

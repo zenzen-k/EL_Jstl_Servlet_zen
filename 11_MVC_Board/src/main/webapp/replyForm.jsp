@@ -39,7 +39,7 @@ content(부모정보3가지(ref, re_step, re_level)) => replyForm.jsp<br>
 <table>
 	<tr>
 		<td colspan="2">
-			<a href="list.bd?pageNum=${pageNum}">글목록</a>
+			<a href="list.bd?pageNum=${param.pageNum}">글목록</a>
 		</td>
 	</tr>
 	
@@ -74,7 +74,7 @@ content(부모정보3가지(ref, re_step, re_level)) => replyForm.jsp<br>
 		<td colspan="2" align="center" >
 			<input type="submit" value="답글쓰기">
 			<input type="reset" value="다시작성">
-			<input type="button" value="목록보기" onclick="location.href='list.bd?pageNum=${pageNum}'">
+			<input type="button" value="목록보기" onclick="location.href='list.bd?pageNum=${param.pageNum}'">
 		</td>
 	</tr>
 </table>

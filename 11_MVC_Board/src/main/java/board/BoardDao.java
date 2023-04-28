@@ -151,7 +151,7 @@ public class BoardDao {
 	
 	public BoardBean getArticleByNum(String num) {
 		
-		String sql2 = "update board set readcount=readcount+1 where num=?";
+		String sql2 = "update board set readcount = readcount+1 where num=?";
 		try {
 			ps = conn.prepareStatement(sql2);
 			ps.setString(1, num);

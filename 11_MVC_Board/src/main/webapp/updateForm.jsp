@@ -2,7 +2,7 @@
 <%@page import="board.BoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-content.jsp(글수정 num) => updateForm.jsp<br>
+content.jsp(글수정 num,pageNum) => updateForm.jsp<br>
 
 <%@ include file="color.jsp" %>
 <link rel="stylesheet" type="text/css" href="./style.css">
@@ -33,12 +33,12 @@ content.jsp(글수정 num) => updateForm.jsp<br>
 <table>
 	<tr>
 		<td>이 름</td>
-		<td><input type="text" name="writer" size="30" value="${bb.writer}"></td>
+		<td><input type="text" name="writer" size="30" value="<%=((BoardBean)request.getAttribute("bb")).getWriter()%>"></td>
 	</tr>
 	
 	<tr>
 		<td>제 목</td>
-		<td><input type="text" name="subject" size="56" value="${bb.subject}"></td>
+		<td><input type="text" name="subject" size="56" value="${bb.getSubject()}"></td>
 	</tr>
 	
 	<tr>

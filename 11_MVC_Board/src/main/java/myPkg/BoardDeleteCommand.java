@@ -1,5 +1,7 @@
 package myPkg;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,10 +37,24 @@ public class BoardDeleteCommand implements BoardCommand{
 		System.out.println("passwd : " + passwd);
 		System.out.println("pageNum : " + pageNum);
 		
-		request.setAttribute("cnt", cnt);
+		//request.setAttribute("cnt", cnt);
 		request.setAttribute("num", num);
 		request.setAttribute("passwd", passwd);
 		request.setAttribute("pageNum", pageNum);
+
+		if(cnt != 1) {
+			try {
+				response.getWriter().append("<script>alert('비밀번호가 일치하지 않습니다');history.go(-1);</script>");
+				response.getWriter().flush(); // alert 을 브라우저에 내보내기 위한 코드.
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			request.setAttribute("match", "false");
+		}//if
+		else { // 수정성공
+			request.setAttribute("match", "true");
+		}
 	}
 	
 }
